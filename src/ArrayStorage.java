@@ -3,40 +3,40 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size;
 
     void clear() {
-        for (int i = 0; i <= this.size(); i++) {
+        for (int i = 0; i <= size; i++) {
             storage[i] = null;
         }
+        size = 0;
     }
 
     void save(Resume r) {
-        if (this.size() == 0) {
-            storage[0] = r;
-            return;
+        for (int i = 0; i <= size; i++) {
+            if (storage[i] == null) {
+                storage[i] = r;
+                size++;
+                return;
+            }
         }
-        int i = 0;
-        while (storage[i] != null) i++;
-        storage[i] = r;
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < this.size(); i++) {
-            if (storage[i].toString().equals(uuid)) return storage[i];
+        for (int i = 0; i <= size; i++) {
+            if (size != 0 && storage[i].toString().equals(uuid)) return storage[i];
         }
-        /**
-         * to avoid NullPointerException -  not to return "null"
-         */
-        return new Resume();
+        return null;
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < this.size(); i++) {
-            if (storage[i].toString().equals(uuid)) {
-                do {
+        for (int i = 0; i <= size; i++) {
+            if (size != 0 && storage[i].toString().equals(uuid)) {
+                for (; storage[i] != null; i++) {
                     storage[i] = storage[i + 1];
-                    i++;
-                } while (storage[i] != null);
+
+                }
+                size--;
             }
         }
     }
@@ -48,10 +48,8 @@ public class ArrayStorage {
 
         Resume[] arrayToGet = new Resume[this.size()];
 
-        int i = 0;
-        while (storage[i] != null) {
+        for (int i = 0; storage[i] != null; i++) {
             arrayToGet[i] = storage[i];
-            i++;
         }
 
         return arrayToGet;
