@@ -6,7 +6,8 @@ import com.apcompany.webapp.model.Resume;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private final int sizeOfStorage = 1000;
+    private Resume[] storage = new Resume[sizeOfStorage];
     private int size;
 
     public void clear() {
@@ -27,6 +28,10 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
+        if(size == sizeOfStorage) {
+            System.out.println("ERROR: storage size of " + sizeOfStorage + " is reached");
+            return;
+        }
         if (size != 0) {
             for (int i = 0; i < size; i++) {
                 if (storage[i].toString().equals(r.getUuid())) {
