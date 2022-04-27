@@ -19,7 +19,7 @@ public class ArrayStorage {
 
     public void update(Resume r) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(r.getUuid())) {
+            if (uuidEqualsArrayElement(r.getUuid(), i)) {
                 storage[i] = r;
                 return;
             }
@@ -34,7 +34,7 @@ public class ArrayStorage {
         }
         if (size != 0) {
             for (int i = 0; i < size; i++) {
-                if (storage[i].toString().equals(r.getUuid())) {
+                if (uuidEqualsArrayElement(r.getUuid(), i)) {
                     System.out.println("ERROR: resume with uuid + " + r.getUuid() + "is already present");
                     return;
                 }
@@ -48,7 +48,7 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
+            if (uuidEqualsArrayElement(uuid, i)) {
                 return storage[i];
             }
         }
@@ -58,7 +58,7 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid)) {
+            if (uuidEqualsArrayElement(uuid, i)) {
                 for (; i < size - 1; i++) {
                     storage[i] = storage[i + 1];
                 }
@@ -84,5 +84,9 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    boolean uuidEqualsArrayElement(String uuid, int iterator){
+        return storage[iterator].toString().equals(uuid);
     }
 }
