@@ -35,7 +35,7 @@ public class ArrayStorage {
                 }
                 storage[size] = r;
             }
-        } else{
+        } else {
             storage[size] = r;
         }
         size++;
@@ -43,9 +43,11 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(uuid))
+            if (storage[i].toString().equals(uuid)) {
                 return storage[i];
+            }
         }
+        System.out.println("ERROR: no resume with uuid " + uuid + " found in storagew");
         return null;
     }
 
