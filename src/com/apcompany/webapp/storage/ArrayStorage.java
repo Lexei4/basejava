@@ -58,8 +58,10 @@ public class ArrayStorage {
                     storage[i] = storage[i + 1];
                 }
                 size--;
+                return;
             }
         }
+        System.out.println("ERROR: cannot delete  message with uuid " + uuid + " . No message found");
     }
 
     /**
