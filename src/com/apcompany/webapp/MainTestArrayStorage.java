@@ -1,4 +1,4 @@
-package test;
+package com.apcompany.webapp;
 
 import com.apcompany.webapp.model.Resume;
 import com.apcompany.webapp.storage.ArrayStorage;
