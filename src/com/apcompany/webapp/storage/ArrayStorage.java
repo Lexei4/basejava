@@ -59,9 +59,8 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index != -1) {
-            for (int i = index; i < size - 1; i++) {
-                storage[i] = storage[i + 1];
-            }
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
             return;
         }
