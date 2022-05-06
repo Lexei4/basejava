@@ -4,36 +4,47 @@ import com.apcompany.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public void update(Resume r) {
-
-    }
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume r) {
-
+        int index = getIndex(r.getUuid());
+        if (index >= 0) {
+            System.out.println("Resume " + r.getUuid() + " already exist");
+        } else if (size >= STORAGE_LIMIT) {
+            System.out.println("Storage overflow");
+        } else if (index < 0) {
+            System.arraycopy(storage, Math.abs(index) - 1, storage, Math.abs(index), size);
+            storage[Math.abs(index) - 1] = r;
+            size++;
+        }
     }
 
     @Override
     public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+        int index = getIndex(uuid);
+        if (index < 0) {
+            System.out.println("ERROR: cannot delete  message with uuid " + uuid + " . No message found");
+        } else if (index == 0) {
+            size--;
+            System.arraycopy(storage, 1, storage, 0, size);
+            System.out.println("Size is: " + size);
+        } else {
+            System.arraycopy(storage, 0, storage,
+                    0, index - 1);
+            System.arraycopy(storage, index + 1,
+                    storage, index,
+                    size);
+            size--;
+        }
     }
 
     @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
+        System.out.println("THe size before sorting is: " + size);
+        System.out.println(Arrays.binarySearch(storage, 0, size, searchKey));
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
