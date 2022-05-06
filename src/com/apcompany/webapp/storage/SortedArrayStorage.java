@@ -13,7 +13,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             System.out.println("Resume " + r.getUuid() + " already exist");
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
-        } else if (index < 0) {
+        } else {
             System.arraycopy(storage, Math.abs(index) - 1, storage, Math.abs(index), size);
             storage[Math.abs(index) - 1] = r;
             size++;
@@ -43,8 +43,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        System.out.println("THe size before sorting is: " + size);
-        System.out.println(Arrays.binarySearch(storage, 0, size, searchKey));
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
