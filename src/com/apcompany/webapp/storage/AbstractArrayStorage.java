@@ -47,7 +47,8 @@ public abstract class AbstractArrayStorage implements Storage {
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
-            saveInStorage(index, r);
+            doSave(index, r);
+            size++;
         }
     }
 
@@ -56,11 +57,15 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("ERROR: cannot delete  message with uuid " + uuid + " . No message found");
         } else {
-            deleteInFromStorage(index);
+            doDelete(index);
+            storage[size - 1] = null;
+            size--;
         }
     }
 
     protected abstract int getIndex(String uuid);
-    protected abstract void saveInStorage(int index, Resume r);
-    protected abstract void deleteInFromStorage(int index);
+
+    protected abstract void doSave(int index, Resume r);
+
+    protected abstract void doDelete(int index);
 }
