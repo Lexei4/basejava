@@ -1,5 +1,7 @@
 package com.apcompany.webapp.storage;
 
+import com.apcompany.webapp.model.Resume;
+
 /**
  * Array based storage for Resumes
  */
@@ -11,5 +13,18 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
+    }
+
+    @Override
+    protected void saveInStorage(int index, Resume r) {
+        storage[size] = r;
+        size++;
+    }
+
+    @Override
+    protected void deleteInFromStorage(int index) {
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
+        size--;
     }
 }

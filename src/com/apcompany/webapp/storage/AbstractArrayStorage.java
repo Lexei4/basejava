@@ -41,26 +41,26 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     public void save(Resume r) {
-        if (getIndex(r.getUuid()) != -1) {
+        int index = getIndex(r.getUuid());
+        if (index >= 0) {
             System.out.println("Resume " + r.getUuid() + " already exist");
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
-            storage[size] = r;
-            size++;
+            saveInStorage(index, r);
         }
     }
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
+        if (index < 0) {
             System.out.println("ERROR: cannot delete  message with uuid " + uuid + " . No message found");
         } else {
-            storage[index] = storage[size - 1];
-            storage[size - 1] = null;
-            size--;
+            deleteInFromStorage(index);
         }
     }
 
     protected abstract int getIndex(String uuid);
+    protected abstract void saveInStorage(int index, Resume r);
+    protected abstract void deleteInFromStorage(int index);
 }
