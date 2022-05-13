@@ -1,13 +1,14 @@
 package com.apcompany.webapp;
 
 import com.apcompany.webapp.model.Resume;
-import com.apcompany.webapp.storage.ArrayStorage;
+import com.apcompany.webapp.storage.SortedArrayStorage;
+import com.apcompany.webapp.storage.Storage;
 
 /**
  * Test for your ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
@@ -19,15 +20,15 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
 
+//
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
-        System.out.println("Size: " + ARRAY_STORAGE.size());
-
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
-
-        ARRAY_STORAGE.update(r3);
-        System.out.println("dummy UPDATE result: ");
-        ARRAY_STORAGE.update(r4);
-
+//        System.out.println("Size: " + ARRAY_STORAGE.size());
+//
+//        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+//
+//        ARRAY_STORAGE.update(r3);
+//        System.out.println("dummy UPDATE result: ");
+//        ARRAY_STORAGE.update(r4);
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
@@ -36,7 +37,7 @@ public class MainTestArrayStorage {
 
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
-        for (int i =0; i < 1010; i++){
+        for (int i =0; i < 10010; i++){
             Resume r_loop = new Resume("120" + i);
             ARRAY_STORAGE.save(r_loop);
         }
