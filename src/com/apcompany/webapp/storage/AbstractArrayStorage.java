@@ -7,14 +7,9 @@ import com.apcompany.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int size = 0;
-
-    public int size() {
-        return size;
-    }
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
@@ -65,9 +60,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    protected abstract int getIndex(String uuid);
-
     protected abstract void doSave(int index, Resume r);
 
-    protected abstract void doDelete(int index);
 }
