@@ -1,26 +1,34 @@
 package com.apcompany.webapp.storage;
 
-import com.apcompany.webapp.exception.ExistStorageException;
-import com.apcompany.webapp.exception.NotExistStorageException;
-import com.apcompany.webapp.exception.StorageException;
 import com.apcompany.webapp.model.Resume;
 
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
-    protected static final int STORAGE_LIMIT = 10000;
+
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index == -1) {
-            throw new NotExistStorageException(uuid);
+    @Override
+    protected Object getSearchKey(String uuid) {
+        return getIndex(uuid);
+    }
+
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
+            }
         }
-        return storage[index];
+        return -1;
     }
 
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
+    }
+
+    @Override
+    protected Resume doGet(Object key) {
+        return storage[(Integer) key];
     }
 
     public void clear() {
@@ -28,38 +36,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index == -1) {
-            throw new NotExistStorageException(r.getUuid());
-        } else {
-            storage[index] = r;
-        }
+    @Override
+    protected void doUpdate(int key, Resume r) {
+        storage[key] = r;
     }
-
-    public void save(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(r.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", r.getUuid());
-        } else {
-            doSave(index, r);
-            size++;
-        }
-    }
-
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            doDelete(index);
-            storage[size - 1] = null;
-            size--;
-        }
-    }
-
-    protected abstract void doSave(int index, Resume r);
-
 }
