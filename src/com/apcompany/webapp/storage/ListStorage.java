@@ -8,16 +8,16 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     protected List<Resume> storage = new ArrayList<>();
 
-    @Override
-    protected Object getSearchKey(String uuid) {
-        return getIndex(uuid);
-    }
+//    @Override
+//    protected Object getSearchKey(String uuid) {
+//        return getIndex(uuid);
+//    }
+
 
     @Override
     protected void doDelete(Object index) {
         int indexToRemove = (Integer) index;
         storage.remove(indexToRemove);
-        size--;
     }
 
     @Override
@@ -26,12 +26,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(int index, Resume r) {
-        storage.set(index, r);
+    protected void doUpdate(Object key, Resume r) {
+        storage.set((Integer) key, r);
     }
 
     @Override
-    protected void doSave(int index, Resume r) {
+    protected void doSave(Object key, Resume r) {
         doSave(r);
     }
 
@@ -39,17 +39,29 @@ public class ListStorage extends AbstractStorage {
         storage.add(r);
     }
 
-    protected int getIndex(String uuid) {
+    protected int getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return storage.indexOf(searchKey);
+    }
+
+    @Override
+    protected boolean isExist(String uuid) {
+        if (getSearchKey(uuid) == -1) {
+            return false;
+        } else
+            return true;
     }
 
     public Resume[] getAll() {
         return storage.toArray(new Resume[storage.size()]);
     }
 
+    @Override
+    public int size() {
+        return 0;
+    }
+
     public void clear() {
         storage.clear();
-        size = 0;
     }
 }
