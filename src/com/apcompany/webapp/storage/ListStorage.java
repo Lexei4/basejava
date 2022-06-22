@@ -8,12 +8,6 @@ import java.util.List;
 public class ListStorage extends AbstractStorage {
     protected List<Resume> storage = new ArrayList<>();
 
-//    @Override
-//    protected Object getSearchKey(String uuid) {
-//        return getIndex(uuid);
-//    }
-
-
     @Override
     protected void doDelete(Object index) {
         int indexToRemove = (Integer) index;
