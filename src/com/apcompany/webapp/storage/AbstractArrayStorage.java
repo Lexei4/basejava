@@ -1,5 +1,6 @@
 package com.apcompany.webapp.storage;
 
+import com.apcompany.webapp.exception.StorageException;
 import com.apcompany.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -31,6 +32,17 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
+    public void save(Resume r) {
+        Object index = getNotExistingSearchKey(r.getUuid());
+        if (size >= STORAGE_LIMIT) {
+            System.out.println("Storage overflow");
+            throw new StorageException("Storage overflow", r.getUuid());
+        } else {
+            doSave(index, r);
+            size++;
+        }
+    }
+
     @Override
     protected Resume doGet(Object key) {
         return storage[(Integer) key];
@@ -44,6 +56,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-        storage[(Integer)key] = r;
+        storage[(Integer) key] = r;
+    }
+
+    @Override
+    protected boolean isExist(String uuid) {
+        if (getSearchKey(uuid) < 0) {
+            return false;
+        } else
+            return true;
     }
 }
