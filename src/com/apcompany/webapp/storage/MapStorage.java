@@ -45,16 +45,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        Resume[] resumeArray = new Resume[storage.size()];
-//        System.out.println(Arrays.toString(resumeArray));
-        int i = 0;
-        for (Map.Entry <String, Resume> entry: storage.entrySet())
-        {
-            resumeArray[i] = entry.getValue();
-            i++;
-        }
-//        System.out.println(Arrays.toString(storage.entrySet().toArray()));
-        return resumeArray;
+        Resume[] arrayOutOfMap = storage.values().toArray(new Resume[storage.size()]);
+        Arrays.sort(arrayOutOfMap);
+        return arrayOutOfMap;
     }
 
     @Override
