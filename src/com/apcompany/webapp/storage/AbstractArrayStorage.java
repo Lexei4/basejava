@@ -9,23 +9,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
+    protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     @Override
     public int size() {
         return size;
     }
 
-    protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
-    @Override
-    protected int getSearchKey(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     @Override
     public Resume[] getAll() {
@@ -61,9 +52,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(String uuid) {
-        if (getSearchKey(uuid) < 0) {
+        if (Integer.parseInt(getSearchKey(uuid).toString()) < 0) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 }

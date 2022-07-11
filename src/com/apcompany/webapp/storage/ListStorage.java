@@ -26,24 +26,21 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void doSave(Object key, Resume r) {
-        doSave(r);
-    }
-
-    protected void doSave(Resume r) {
         storage.add(r);
     }
 
-    protected int getSearchKey(String uuid) {
+    protected Object getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return storage.indexOf(searchKey);
     }
 
     @Override
     protected boolean isExist(String uuid) {
-        if (getSearchKey(uuid) == -1) {
+        if (Integer.parseInt(getSearchKey(uuid).toString()) == -1) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
     public Resume[] getAll() {
@@ -52,7 +49,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public int size() {
-        return 0;
+        return storage.size();
     }
 
     public void clear() {

@@ -6,37 +6,26 @@ import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
-    protected Map<Integer, Resume> storage = new HashMap();
+    protected Map<String, Resume> storage = new HashMap();
 
     @Override
-    protected int getSearchKey(String uuid) {
-        Resume searchKey = new Resume(uuid);
-        for (Map.Entry entry : storage.entrySet()) {
-            if (Objects.equals(searchKey, entry.getValue())) {
-                return (Integer) entry.getKey();
-            }
-        }
-        return -1;
+    protected Object getSearchKey(String uuid) {
+        return uuid;
     }
 
     @Override
     protected boolean isExist(String uuid) {
-        return storage.containsValue(new Resume(uuid));
+        return storage.containsKey(uuid);
     }
 
     @Override
     protected void doDelete(Object key) {
-        storage.remove(key);
+        storage.remove((String) key);
     }
 
     @Override
     protected void doSave(Object key, Resume r) {
-        if (!isExist(r.getUuid())) {
-            for (Map.Entry entry : storage.entrySet()) {
-                key = entry.getKey();
-            }
-            storage.put((Integer) key + 1, r);
-        }
+        storage.put((String) key, r);
     }
 
     @Override
@@ -46,7 +35,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-        storage.put((Integer) key, r);
+        storage.put((String) key, r);
     }
 
     @Override
@@ -56,11 +45,20 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
+        Resume[] resumeArray = new Resume[storage.size()];
+//        System.out.println(Arrays.toString(resumeArray));
+        int i = 0;
+        for (Map.Entry <String, Resume> entry: storage.entrySet())
+        {
+            resumeArray[i] = entry.getValue();
+            i++;
+        }
+//        System.out.println(Arrays.toString(storage.entrySet().toArray()));
+        return resumeArray;
     }
 
     @Override
     public int size() {
-        return 0;
+        return storage.size();
     }
 }
