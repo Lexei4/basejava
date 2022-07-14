@@ -16,8 +16,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
-
-
     @Override
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
@@ -52,10 +50,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(String uuid) {
-        if (Integer.parseInt(getSearchKey(uuid).toString()) < 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return (Integer) getSearchKey(uuid) >= 0;
     }
 }

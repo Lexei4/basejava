@@ -9,9 +9,9 @@ public class ListStorage extends AbstractStorage {
     protected List<Resume> storage = new ArrayList<>();
 
     @Override
-    protected void doDelete(Object index) {
-        int indexToRemove = (Integer) index;
-        storage.remove(indexToRemove);
+    protected void doDelete(Object indexReceived) {
+        int index = (Integer) indexReceived;
+        storage.remove(index);
     }
 
     @Override
@@ -36,11 +36,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(String uuid) {
-        if (Integer.parseInt(getSearchKey(uuid).toString()) == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return (Integer) getSearchKey(uuid) != -1;
     }
 
     public Resume[] getAll() {
