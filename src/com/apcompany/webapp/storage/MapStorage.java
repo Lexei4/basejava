@@ -30,8 +30,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object key) {
-        String keyString = (String) key;
-        return storage.get(keyString);
+        return storage.get((String) key);
     }
 
     @Override
