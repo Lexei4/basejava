@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
  * Interactive test for ArrayStorage implementation
  * (just run, no need to understand)
  */
-public class MainArray {
+public class  MainArray {
 //    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
     private final static Storage ARRAY_STORAGE = new MapStorage();
 
