@@ -34,8 +34,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(String uuid) {
-        return (Integer) getSearchKey(uuid) != -1;
+    protected boolean isExist(String searchKey) {
+        return Integer.parseInt(searchKey) != -1;
     }
 
     public Resume[] getAll() {
