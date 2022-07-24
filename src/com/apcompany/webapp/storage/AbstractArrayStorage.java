@@ -3,9 +3,14 @@ package com.apcompany.webapp.storage;
 import com.apcompany.webapp.exception.StorageException;
 import com.apcompany.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
+
+    private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName);
 
     protected static final int STORAGE_LIMIT = 10000;
     protected int size = 0;
@@ -16,9 +21,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return size;
     }
 
+//    @Override
+//    public Resume[] getAll() {
+//        return Arrays.copyOfRange(storage, 0, size);
+//    }
+
     @Override
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    public List<Resume> getAllSorted() {
+        Resume[] resumeArray = Arrays.copyOfRange(storage, 0, size);
+        List<Resume> sortedArrayList = new ArrayList<>(List.of(resumeArray));
+        sortedArrayList.sort(RESUME_COMPARATOR);
+
+        return sortedArrayList;
     }
 
     public void save(Resume r) {
