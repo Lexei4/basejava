@@ -4,9 +4,9 @@ import com.apcompany.webapp.exception.StorageException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class MapStorageTest extends AbstractArrayStorageTest {
-    public MapStorageTest() {
-        super(new MapUuidStorage ());
+public class MapFullNameStorageTest extends AbstractArrayStorageTest {
+    public MapFullNameStorageTest() {
+        super(new MapFullNameStorage ());
     }
 
     @Ignore

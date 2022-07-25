@@ -4,18 +4,21 @@ import com.apcompany.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapStorage extends AbstractStorage {
+public class MapFullNameStorage extends AbstractStorage {
 
     protected Map<String, Resume> storage = new LinkedHashMap<>();
 
+    private static final Comparator<Resume> RESUME_FULL_NAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+
+
     @Override
-    protected Object getSearchKey(String uuid) {
-        return uuid;
+    protected Object getSearchKey(String fullName) {
+        return fullName;
     }
 
     @Override
-    protected boolean isExist(String uuid) {
-        return storage.containsKey(uuid);
+    protected boolean isExist(String fullName) {
+        return storage.containsKey(fullName);
     }
 
     @Override
@@ -43,13 +46,11 @@ public class MapStorage extends AbstractStorage {
         storage.clear();
     }
 
-//    @Override
-//    public Resume[] getAll() {
-//        return storage.values().toArray(new Resume[0]);
-//    }
-
     @Override
     public List<Resume> getAllSorted(){
+        SortedSet<Resume> keys = new TreeSet<>(RESUME_FULL_NAME_COMPARATOR);
+        keys.addAll(storage.values());
+
         return new ArrayList<>(storage.values());
     }
 
