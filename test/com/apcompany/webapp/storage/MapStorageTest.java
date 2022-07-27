@@ -1,16 +1,7 @@
 package com.apcompany.webapp.storage;
 
-import com.apcompany.webapp.exception.StorageException;
-import org.junit.Ignore;
-import org.junit.Test;
-
-public class MapStorageTest extends AbstractArrayStorageTest {
+public class MapStorageTest extends AbstractStorageTest {
     public MapStorageTest() {
         super(new MapUuidStorage ());
-    }
-
-    @Ignore
-    @Test(expected = StorageException.class)
-    public void saveOverflow() {
     }
 }
