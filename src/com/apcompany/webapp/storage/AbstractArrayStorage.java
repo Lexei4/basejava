@@ -56,7 +56,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(String uuid) {
-        return Integer.parseInt(uuid) >= 0;
+    protected boolean isExist(Object uuid) {
+        return (Integer) uuid >= 0;
     }
 }

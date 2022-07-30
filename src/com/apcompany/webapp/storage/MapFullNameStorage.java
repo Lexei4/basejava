@@ -17,7 +17,7 @@ public class MapFullNameStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(String fullName) {
+    protected boolean isExist(Object fullName) {
         return storage.containsKey(fullName);
     }
 

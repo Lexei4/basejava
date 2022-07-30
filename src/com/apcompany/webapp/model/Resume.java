@@ -1,5 +1,6 @@
 package com.apcompany.webapp.model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -13,8 +14,8 @@ public class Resume {
     private final String fullName;
 
     public Resume(String uuid, String fullName) {
-        this.uuid = uuid;
-        this.fullName = fullName;
+        this.uuid = Objects.requireNonNull(uuid,"uuid must not be null");
+        this.fullName = Objects.requireNonNull(fullName,"fullName must not be null");
     }
 
     public Resume(String fullName) {

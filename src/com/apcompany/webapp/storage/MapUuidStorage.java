@@ -16,7 +16,7 @@ public class MapUuidStorage  extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(String uuid) {
+    protected boolean isExist(Object uuid) {
         return storage.containsKey(uuid);
     }
 
@@ -37,7 +37,7 @@ public class MapUuidStorage  extends AbstractStorage {
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-        storage.put((String) key, r);
+        storage.replace((String) key, r);
     }
 
     @Override
