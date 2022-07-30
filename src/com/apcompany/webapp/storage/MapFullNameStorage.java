@@ -47,10 +47,9 @@ public class MapFullNameStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> getAllSorted(){
+    public List<Resume> doCopyAll(){
         SortedSet<Resume> keys = new TreeSet<>(RESUME_FULL_NAME_COMPARATOR);
         keys.addAll(storage.values());
-
         return new ArrayList<>(storage.values());
     }
 

@@ -17,15 +17,14 @@ public class Resume {
         this.fullName = fullName;
     }
 
-    public Resume(String uuid) {
-        this.uuid = uuid;
-        this.fullName = "No_Name";
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(),fullName);
     }
-
-    public Resume() {
-        this.uuid = UUID.randomUUID().toString();
-        fullName = "No_Name";
-    }
+//
+//    public Resume() {
+//        this.uuid = UUID.randomUUID().toString();
+//        fullName = "No_Name";
+//    }
 
     public String getUuid() {
         return uuid;

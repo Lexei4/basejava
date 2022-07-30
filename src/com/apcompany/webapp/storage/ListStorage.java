@@ -38,12 +38,8 @@ public class ListStorage extends AbstractStorage {
         return Integer.parseInt(searchKey) != -1;
     }
 
-//    public Resume[] getAll() {
-//        return storage.toArray(new Resume[0]);
-//    }
-
     @Override
-    public List<Resume> getAllSorted() {
+    public List<Resume> doCopyAll() {
         return storage;
     }
 
