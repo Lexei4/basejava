@@ -85,7 +85,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void save() {
-        Resume testResume = new Resume("123");
+        Resume testResume = new Resume("123", "dummy");
         storage.save(testResume);
         assertGet(testResume);
         assertSize(4);

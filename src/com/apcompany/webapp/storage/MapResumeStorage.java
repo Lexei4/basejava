@@ -4,26 +4,31 @@ import com.apcompany.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapFullNameStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage {
 
     protected Map<String, Resume> storage = new LinkedHashMap<>();
 
     private static final Comparator<Resume> RESUME_FULL_NAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
-
     @Override
-    protected Object getSearchKey(String fullName) {
-        return fullName;
+    protected Object getSearchKey(String uuid) {
+                if (storage.get(uuid) == null) {
+                    return uuid;
+                } else {
+                    return storage.get(uuid);
+                }
     }
 
     @Override
-    protected boolean isExist(Object fullName) {
-        return storage.containsKey(fullName);
+    protected boolean isExist(Object resume) {
+        Resume newResume =  new Resume(resume.toString(), "dummy");
+        return storage.containsKey(newResume.getUuid());
     }
 
     @Override
     protected void doDelete(Object key) {
-        storage.remove((String) key);
+        Resume newResume =  new Resume(key.toString(), "dummy");
+        storage.remove(newResume.getUuid());
     }
 
     @Override
@@ -33,12 +38,13 @@ public class MapFullNameStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(Object key) {
-        return storage.get((String) key);
+        return (Resume)key;
     }
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-        storage.put((String) key, r);
+        Resume newResume =  new Resume(key.toString(), "dummy");
+        storage.replace(newResume.getUuid(), r);
     }
 
     @Override
