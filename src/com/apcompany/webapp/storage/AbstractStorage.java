@@ -31,12 +31,10 @@ public abstract class AbstractStorage implements Storage {
         doDelete(key);
     }
 
-    public List<Resume> getAllSorted(){
+    public List<Resume> getAllSorted() {
         List<Resume> resumes = doCopyAll();
         resumes.sort(RESUME_FULL_NAME_COMPARATOR);
         return resumes;
-
-
     }
 
     protected Object getExistingSearchKey(String uuid) {
@@ -48,7 +46,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     protected Object getNotExistingSearchKey(String uuid) {
-        Object searchKey  = getSearchKey(uuid);
+        Object searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }

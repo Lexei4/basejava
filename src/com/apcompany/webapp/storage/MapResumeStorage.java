@@ -12,39 +12,33 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchKey(String uuid) {
-                if (storage.get(uuid) == null) {
-                    return uuid;
-                } else {
-                    return storage.get(uuid);
-                }
+        return storage.get(uuid);
     }
 
     @Override
     protected boolean isExist(Object resume) {
-        Resume newResume =  new Resume(resume.toString(), "dummy");
-        return storage.containsKey(newResume.getUuid());
+        return resume != null;
     }
 
     @Override
     protected void doDelete(Object key) {
-        Resume newResume =  new Resume(key.toString(), "dummy");
-        storage.remove(newResume.getUuid());
+        Resume resumeToDelete = (Resume) key;
+        storage.remove(resumeToDelete.getUuid());
     }
 
     @Override
     protected void doSave(Object key, Resume r) {
-        storage.put((String) key, r);
+        storage.put(r.getUuid(), r);
     }
 
     @Override
     protected Resume doGet(Object key) {
-        return (Resume)key;
+        return (Resume) key;
     }
 
     @Override
     protected void doUpdate(Object key, Resume r) {
-        Resume newResume =  new Resume(key.toString(), "dummy");
-        storage.replace(newResume.getUuid(), r);
+        storage.replace(r.getUuid(), r);
     }
 
     @Override
@@ -53,7 +47,7 @@ public class MapResumeStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> doCopyAll(){
+    public List<Resume> doCopyAll() {
         SortedSet<Resume> keys = new TreeSet<>(RESUME_FULL_NAME_COMPARATOR);
         keys.addAll(storage.values());
         return new ArrayList<>(storage.values());
