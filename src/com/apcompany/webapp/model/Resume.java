@@ -21,11 +21,6 @@ public class Resume {
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(),fullName);
     }
-//
-//    public Resume() {
-//        this.uuid = UUID.randomUUID().toString();
-//        fullName = "No_Name";
-//    }
 
     public String getUuid() {
         return uuid;
