@@ -4,39 +4,39 @@ import com.apcompany.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapResumeStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage<Resume> {
 
     protected Map<String, Resume> storage = new LinkedHashMap<>();
 
     private static final Comparator<Resume> RESUME_FULL_NAME_COMPARATOR = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Resume getSearchKey(String uuid) {
         return storage.get(uuid);
     }
 
     @Override
-    protected boolean isExist(Object resume) {
+    protected boolean isExist(Resume resume) {
         return resume != null;
     }
 
     @Override
-    protected void doDelete(Object key) {
-        storage.remove(((Resume) key).getUuid());
+    protected void doDelete(Resume key) {
+        storage.remove(key.getUuid());
     }
 
     @Override
-    protected void doSave(Object key, Resume r) {
+    protected void doSave(Resume key, Resume r) {
         storage.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return (Resume) key;
+    protected Resume doGet(Resume key) {
+        return key;
     }
 
     @Override
-    protected void doUpdate(Object key, Resume r) {
+    protected void doUpdate(Resume key, Resume r) {
         storage.replace(r.getUuid(), r);
     }
 

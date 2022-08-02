@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     private static final Comparator<Resume> RESUME_COMPARATOR = Comparator.comparing(Resume::getFullName);
 
@@ -29,7 +29,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     public void save(Resume r) {
-        Object index = getNotExistingSearchKey(r.getUuid());
+        Integer index = getNotExistingSearchKey(r.getUuid());
         if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
             throw new StorageException("Storage overflow", r.getUuid());
@@ -40,8 +40,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return storage[(Integer) key];
+    protected Resume doGet(Integer key) {
+        return storage[key];
     }
 
     @Override
@@ -51,12 +51,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Object key, Resume r) {
-        storage[(Integer) key] = r;
+    protected void doUpdate(Integer key, Resume r) {
+        storage[key] = r;
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return (Integer) uuid >= 0;
+    protected boolean isExist(Integer uuid) {
+        return uuid >= 0;
     }
 }

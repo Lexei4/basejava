@@ -6,38 +6,38 @@ import java.util.*;
 
 // TODO implement
 // TODO create new MapStorage with search key not uuid
-public class MapUuidStorage  extends AbstractStorage {
+public class MapUuidStorage  extends AbstractStorage<String> {
 
     protected Map<String, Resume> storage = new LinkedHashMap<>();
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected String getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
+    protected boolean isExist(String uuid) {
         return storage.containsKey(uuid);
     }
 
     @Override
-    protected void doDelete(Object key) {
-        storage.remove((String) key);
+    protected void doDelete(String key) {
+        storage.remove(key);
     }
 
     @Override
-    protected void doSave(Object key, Resume r) {
-        storage.put((String) key, r);
+    protected void doSave(String key, Resume r) {
+        storage.put(key, r);
     }
 
     @Override
-    protected Resume doGet(Object key) {
-        return storage.get((String) key);
+    protected Resume doGet(String key) {
+        return storage.get(key);
     }
 
     @Override
-    protected void doUpdate(Object key, Resume r) {
-        storage.replace((String) key, r);
+    protected void doUpdate(String key, Resume r) {
+        storage.replace(key, r);
     }
 
     @Override
