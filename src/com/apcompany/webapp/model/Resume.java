@@ -30,7 +30,13 @@ public class Resume {
         return fullName;
     }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Resume)) return false;
+        Resume resume = (Resume) o;
+        return getUuid().equals(resume.getUuid()) && getFullName().equals(resume.getFullName());
+    }
 
     @Override
     public int hashCode() {
