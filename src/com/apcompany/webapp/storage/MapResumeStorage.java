@@ -22,8 +22,7 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected void doDelete(Object key) {
-        Resume resumeToDelete = (Resume) key;
-        storage.remove(resumeToDelete.getUuid());
+        storage.remove(((Resume) key).getUuid());
     }
 
     @Override
@@ -48,8 +47,6 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     public List<Resume> doCopyAll() {
-        SortedSet<Resume> keys = new TreeSet<>(RESUME_FULL_NAME_COMPARATOR);
-        keys.addAll(storage.values());
         return new ArrayList<>(storage.values());
     }
 
