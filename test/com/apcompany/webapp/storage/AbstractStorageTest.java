@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public abstract class AbstractStorageTest {
 
-    public Storage storage;
+    protected Storage storage;
     private static final Resume RESUME_1 = new Resume("uuid1","name1");
     private static final Resume RESUME_2 = new Resume("uuid2", "name2");
     private static final Resume RESUME_3 = new Resume("uuid3","name3");
