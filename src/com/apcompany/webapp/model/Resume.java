@@ -1,5 +1,6 @@
 package com.apcompany.webapp.model;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,6 +13,11 @@ public class Resume {
     private final String uuid;
 
     private final String fullName;
+
+    private final Map<ContactType, String> contacts;
+
+    private final Map<SectionType, AbstractSection> sections;
+
 
     public Resume(String uuid, String fullName) {
         this.uuid = Objects.requireNonNull(uuid,"uuid must not be null");
